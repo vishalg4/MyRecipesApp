@@ -2,6 +2,9 @@
 
 A sample app that display list of Recipes. This App uses Kotlin and set of Android Jetpack libraries plus Retrofit to display data from REST API(Unsplash).
 
+* This App comprises UI test cases using Espresso testing framework. 
+
+* it also covers Unit test cases using Junit and MockK library.
 
 ### Prerequisites
 
