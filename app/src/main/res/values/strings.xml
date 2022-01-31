@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Recipe App</string>
+    <string name="no_internet">Please check your internet connection</string>
+
+    <!-- Recipe List Activity -->
+    <string name="activity_recipe_list_no_data">No Data</string>
+    <string name="activity_recipe_list_search_hint">Search by name</string>
+    <string name="activity_recipe_list_search_error">there is no such recipe name</string>
+    <string name="activity_recipes_list_action_bar_title">Recipes</string>
+    <string name="activity_recipes_list_network_error">Network error, could get data,please try again!</string>
+    <string name="activity_recipes_list_refresh">refresh</string>
+    <string name="activity_recipes_list_title">Recipes</string>
+
+    <!-- Recipe Details Activity -->
+    <string name="activity_recipe_details_title">Recipe Details</string>
+    <string name="activity_recipe_details_add_to_favorite">Add to favorite</string>
+
+</resources>

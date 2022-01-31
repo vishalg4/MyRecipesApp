@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Recipe List Activity -->
+    <string name="activity_recipe_list_item_caption_dummy">Here’s what you need to know to start your day.</string>
+    <string name="activity_recipe_list_item_name_dummy">recipes title ........... this is a sample text</string>
+
+    <!-- Recipe Details Activity -->
+    <string name="activity_recipe_details_title_dummy">this is the recipe name</string>
+    <string name="recipe_details_preview_dummy">this is the recipes details, some text to test the appearance of
+        the view It\'s time for a truly uncompromising smartphone. One that was designed and
+        manufactured by technical enthusiasts - in close coordination with the future users. A
+        smartphone that perfectly combines fascinating technology, groundbreaking design and
+        breakthrough innovation. It is time for the OnePlus 3. But do not rely on our word. Convince
+        yourself.
+    </string>
+</resources>
