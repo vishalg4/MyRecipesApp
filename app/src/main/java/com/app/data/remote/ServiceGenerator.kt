@@ -16,11 +16,18 @@ private const val contentType = "Content-Type"
 private const val contentTypeValue = "application/json"
 private const val timeoutConnect = 30   //In seconds
 
+/**
+ * ServiceGenerator used to create an instance of [Retrofit] client to make API calls.
+ * @constructor initialize class with parameters [okHttpBuilder] and [retrofit].
+ */
 @Singleton
 class ServiceGenerator @Inject constructor() {
     private val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
     private val retrofit: Retrofit
 
+    /**
+     * [headerInterceptor] contain required header to be added in [OkHttpClient]
+     */
     private var headerInterceptor = Interceptor { chain ->
         val original = chain.request()
         val request = original.newBuilder()
@@ -31,6 +38,10 @@ class ServiceGenerator @Inject constructor() {
         chain.proceed(request)
     }
 
+    /**
+     * [logger] is logging interceptor [HttpLoggingInterceptor] the intercept
+     * and retrieve request log
+     */
     private val logger: HttpLoggingInterceptor
         get() {
             val loggingInterceptor = HttpLoggingInterceptor()
@@ -40,6 +51,9 @@ class ServiceGenerator @Inject constructor() {
             return loggingInterceptor
         }
 
+    /**
+     * Initialize [Retrofit] instance.
+     */
     init {
         okHttpBuilder.addInterceptor(headerInterceptor)
         okHttpBuilder.addInterceptor(logger)
@@ -52,6 +66,11 @@ class ServiceGenerator @Inject constructor() {
             .build()
     }
 
+    /**
+     * Create Retrofit API client to make API call.
+     * @param [serviceClass] is class of given type.
+     * @return Retrofit API client.
+     */
     fun <S> createService(serviceClass: Class<S>): S {
         return retrofit.create(serviceClass)
     }

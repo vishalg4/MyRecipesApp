@@ -6,6 +6,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Represent user details.
+ */
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class User(

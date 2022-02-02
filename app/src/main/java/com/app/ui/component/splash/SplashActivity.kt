@@ -8,8 +8,11 @@ import com.app.SPLASH_DELAY
 import com.app.ui.component.recipes.RecipesListActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * This activity inherits [BaseActivity], used to splash screen when launching the app.
+ */
 @AndroidEntryPoint
-class SplashActivity : BaseActivity(){
+class SplashActivity : BaseActivity() {
 
     private lateinit var binding: SplashLayoutBinding
 

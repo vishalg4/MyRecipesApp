@@ -5,6 +5,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Presents details of single recipes.
+ */
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class RecipesItem(

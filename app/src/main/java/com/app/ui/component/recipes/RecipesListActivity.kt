@@ -27,6 +27,9 @@ import com.app.ui.component.recipes.adapter.RecipesAdapter
 import com.app.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * This activity is used to show list of Recipes.
+ */
 @AndroidEntryPoint
 class RecipesListActivity : BaseActivity() {
     private lateinit var binding: HomeActivityBinding
@@ -34,11 +37,17 @@ class RecipesListActivity : BaseActivity() {
 
     private val recipesListViewModel: RecipesListViewModel by viewModels()
 
+    /**
+     * Provide instance of this activity.
+     */
     companion object {
         fun getInstance(context: Context): Intent =
             Intent(context, RecipesListActivity::class.java)
     }
 
+    /**
+     * Initializing binding object to bind View with Activity.
+     */
     override fun initViewBinding() {
         binding = HomeActivityBinding.inflate(layoutInflater)
         val view = binding.root
@@ -64,6 +73,9 @@ class RecipesListActivity : BaseActivity() {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
         }
 
+        /**
+         * Added listener to SearchView get search even callbacks.
+         */
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 handleSearch(query)
@@ -84,6 +96,10 @@ class RecipesListActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Private method, used to update progressbar state when search is initiated
+     * @param [query] string searched in SearchView
+     */
     private fun handleSearch(query: String) {
         if (query.isNotEmpty()) {
             binding.loadingProgressBar.visibility = VISIBLE
@@ -91,6 +107,9 @@ class RecipesListActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Update RecyclerView's Adapter [RecipesAdapter] to update recipe list.
+     */
     private fun bindListData(recipes: Recipes) {
         if (!(recipes.recipesList.isNullOrEmpty())) {
             recipesAdapter = RecipesAdapter(recipesListViewModel, recipes.recipesList)
@@ -101,23 +120,34 @@ class RecipesListActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Use to navigate to [DetailsActivity] for selected recipe.
+     * @param [navigateEvent] is [SingleEvent], contains selected [RecipesItem]
+     */
     private fun navigateToDetailsScreen(navigateEvent: SingleEvent<RecipesItem>) {
         navigateEvent.getContentIfNotHandled()?.let {
-            val nextScreenIntent = Intent(this, DetailsActivity::class.java).apply {
-                putExtra(RECIPE_ITEM_KEY, it)
-            }
+            val nextScreenIntent = DetailsActivity.getInstance(this, it)
             startActivity(nextScreenIntent)
         }
     }
 
+    /**
+     * Setup and observe SnackBar ViewModel.
+     */
     private fun observeSnackBarMessages(event: LiveData<SingleEvent<Any>>) {
         binding.root.setupSnackbar(this, event, Snackbar.LENGTH_LONG)
     }
 
+    /**
+     * Shows SnackBar message to the user.
+     */
     private fun observeToast(event: LiveData<SingleEvent<Any>>) {
         binding.root.showToast(this, event, Snackbar.LENGTH_LONG)
     }
 
+    /**
+     * Used to show search error message.
+     */
     private fun showSearchError() {
         recipesListViewModel.showToastMessage(SEARCH_ERROR)
     }
@@ -156,6 +186,9 @@ class RecipesListActivity : BaseActivity() {
         }
     }
 
+    /**
+     * View Models observe by [RecipesListActivity]
+     */
     override fun observeViewModel() {
         observe(recipesListViewModel.recipesLiveData, ::handleRecipesList)
         observe(recipesListViewModel.recipeSearchFound, ::showSearchResult)

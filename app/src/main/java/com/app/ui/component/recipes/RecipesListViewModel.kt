@@ -16,24 +16,37 @@ import kotlinx.coroutines.launch
 import java.util.Locale.ROOT
 import javax.inject.Inject
 
+/**
+ * This ViewModel implements [BaseViewModel], used to retrieve and search recipe list
+ * using [dataRepository]
+ * Data --> LiveData is exposed as LiveData and locally exposed as MutableLiveData in viewModel.
+ *
+ * @param [dataRepository] provide access to data source(local & Remote).
+ */
 @HiltViewModel
 class RecipesListViewModel @Inject constructor(
     private val dataRepositoryRepository: DataRepositorySource) : BaseViewModel() {
 
     /**
-     * Data --> LiveData, Exposed as LiveData, Locally in viewModel as MutableLiveData
+     * [recipesLiveData] LiveData is used to expose Recipes data.
      */
     private val recipesLiveDataPrivate = MutableLiveData<Resource<Recipes>>()
     val recipesLiveData: LiveData<Resource<Recipes>> get() = recipesLiveDataPrivate
 
+    /**
+     * [recipeSearchFound] LiveData is used to expose searched recipe item [RecipesItem]
+     */
     private val recipeSearchFoundPrivate: MutableLiveData<RecipesItem> = MutableLiveData()
     val recipeSearchFound: LiveData<RecipesItem> get() = recipeSearchFoundPrivate
 
+    /**
+     * [noSearchFound] LiveData is used to expose when search result not found.
+     */
     private val noSearchFoundPrivate: MutableLiveData<Unit> = MutableLiveData()
     val noSearchFound: LiveData<Unit> get() = noSearchFoundPrivate
 
     /**
-     * UI actions as event, user action is single one time event, Shouldn't be multiple time consumption
+     * UI actions as event, user action when selected any recipe from list.
      */
     private val openRecipeDetailsPrivate = MutableLiveData<SingleEvent<RecipesItem>>()
     val openRecipeDetails: LiveData<SingleEvent<RecipesItem>> get() = openRecipeDetailsPrivate
@@ -47,6 +60,9 @@ class RecipesListViewModel @Inject constructor(
     private val showToastPrivate = MutableLiveData<SingleEvent<Any>>()
     val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
 
+    /**
+     * Used to retrieve recipes details from data Repository
+     */
     fun getRecipes() {
         viewModelScope.launch {
             recipesLiveDataPrivate.value = Resource.Loading()

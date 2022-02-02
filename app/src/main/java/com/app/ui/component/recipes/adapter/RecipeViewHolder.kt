@@ -7,6 +7,10 @@ import com.app.data.dto.recipes.RecipesItem
 import com.app.databinding.RecipeItemBinding
 import com.app.ui.base.listeners.RecyclerItemListener
 
+/**
+ * A View Holder class extends [RecyclerView.ViewHolder], use to hold and update
+ * item's View(RecyclerView list item).
+ */
 class RecipeViewHolder(private val itemBinding: RecipeItemBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
 

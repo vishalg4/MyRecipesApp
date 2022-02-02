@@ -11,12 +11,21 @@ import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
-
+/**
+ * RemoteData class is an implementation of [RemoteDataSource] class which is use to retrieve
+ * recipes data from network API call.
+ * @param [serviceGenerator] use to provide Retrofit client to make API call.
+ * @param [networkConnectivity] use to check internet connectivity.
+ */
 class RemoteData @Inject constructor(
     private val serviceGenerator: ServiceGenerator,
     private val networkConnectivity: NetworkConnectivity
 ) : RemoteDataSource {
 
+    /**
+     * This method use to call fetchRecipes api and returns processed response.
+     * @return [Resource] contains Recipes response.
+     */
     override suspend fun requestRecipes(): Resource<Recipes> {
         val recipesService = serviceGenerator.createService(RecipesService::class.java)
 
@@ -30,6 +39,11 @@ class RemoteData @Inject constructor(
         }
     }
 
+    /**
+     * Private method which is use to process API call after checking internet connection.
+     * @param [responseCall] is a lambda function.
+     * @return [Any] which can be response body or error code.
+     */
     private suspend fun processRequest(responseCall: suspend () -> Response<*>): Any? {
         if (!networkConnectivity.isConnected()) {
             return NO_INTERNET_CONNECTION

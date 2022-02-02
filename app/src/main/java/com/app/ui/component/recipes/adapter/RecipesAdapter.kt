@@ -8,6 +8,11 @@ import com.app.databinding.RecipeItemBinding
 import com.app.ui.base.listeners.RecyclerItemListener
 import com.app.ui.component.recipes.RecipesListViewModel
 
+/**
+ * Recipe Adapter used to update [RecyclerView]
+ * @param [recipesListViewModel] use to perform operation with recipe list.
+ * @param [recipes] list of [RecipesItem]
+ */
 class RecipesAdapter(
     private val recipesListViewModel: RecipesListViewModel,
     private val recipes: List<RecipesItem>

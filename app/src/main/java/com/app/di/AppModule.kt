@@ -14,6 +14,10 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * This [AppModule] defines the dependencies which are requited at App level components.
+ *
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
